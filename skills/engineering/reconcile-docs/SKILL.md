@@ -1,6 +1,6 @@
 ---
 name: reconcile-docs
-description: Use when Markdown project docs may conflict, be stale, need source-of-truth alignment, or require validation against code; applies to ADRs, PRDs, AGENTS.md, CONTEXT.md, DOCUMENTATION-MAP.md, agent guidance, and docs audits.
+description: Audits Markdown project docs (ADRs, PRDs, CONTEXT.md, AGENTS.md, DOCUMENTATION-MAP.md) for conflicts, staleness, and source-of-truth drift, validates claims against the codebase, and produces a report-first reconciliation plan. Maintenance bookend to grill-with-docs. Use when docs have drifted, after a refactor that didn't touch docs, or to sanity-check accumulated ADRs/CONTEXT.md updates.
 ---
 
 # Reconcile Docs
@@ -52,9 +52,9 @@ For generated sections:
 - If a generated block is the only available source of truth, state that assumption and keep extraction minimal.
 
 ## Source Of Truth
-Prefer an explicit project-local hierarchy when present, such as `DOCUMENTATION-MAP.md`, `CONTEXT.md`, `AGENTS.md`, or a docs index. If no hierarchy exists, use this default: current user instructions; `AGENTS.md` for agent, process, style, and repo workflow guidance; accepted/canonical ADRs; current PRDs and requirements docs; README and contributor docs; inline implementation notes or code comments; draft, superseded, or stale docs.
+Prefer an explicit project-local hierarchy when present, such as `DOCUMENTATION-MAP.md`, `CONTEXT.md`, `AGENTS.md`, or a docs index. If no hierarchy exists, use this default: current user instructions; `CONTEXT.md` as the canonical glossary of project terminology (see `../grill-with-docs/CONTEXT-FORMAT.md`); `AGENTS.md` for agent, process, style, and repo workflow guidance; accepted/canonical ADRs (see `../grill-with-docs/ADR-FORMAT.md`); current PRDs and requirements docs; README and contributor docs; inline implementation notes or code comments; draft, superseded, or stale docs.
 
-Do not treat newer as automatically truer. Use recency only as supporting evidence. Treat `CONTEXT.md` and `DOCUMENTATION-MAP.md` as derived context/navigation docs by default. If either conflicts with source docs and the assumption matters, ask one focused follow-up question before resolving the finding.
+Do not treat newer as automatically truer. Use recency only as supporting evidence. Treat `DOCUMENTATION-MAP.md` and `CONTEXT-MAP.md` as derived navigation docs by default — not `CONTEXT.md` itself, which is the canonical glossary. If a navigation doc conflicts with source docs and the assumption matters, ask one focused follow-up question before resolving the finding.
 
 ## Document Status
 Use lightweight lifecycle terms:
@@ -83,7 +83,7 @@ superseded-by: path-or-id
 ## Workflow
 Use `quick-check` or `focused-audit` unless the user asks for a full audit.
 
-1. Discover in-scope Markdown docs and build a source map: path, apparent purpose, status, owner if present, and authority.
+1. Discover in-scope Markdown docs and build a source map: path, apparent purpose, status, owner if present, and authority. If `docs/agents/domain.md` exists, read it first to learn the configured doc layout (produced by `/setup-matt-pocock-skills`) before scanning.
 2. Extract only concrete claims relevant to the requested scope. For broad audits, prioritize claims that affect implementation, agent behavior, APIs, data, dependencies, tooling, or user-visible behavior.
 3. Compare relevant docs against each other, then validate only high-impact, suspicious, contradicted, stale-looking, or explicitly requested claims against the codebase.
 4. Classify unresolved items as `needs code inspection` or `needs human decision`.
@@ -108,7 +108,9 @@ Each finding must include exact references whenever possible:
 - Concise paraphrase of the claim, with a minimal quote only if needed
 - Recommended resolution or one follow-up question
 
-For high-confidence findings, propose concrete edits but do not apply them by default.
+For high-confidence findings, propose concrete edits but do not apply them by default. When proposing edits to `CONTEXT.md` or ADRs, conform to `../grill-with-docs/CONTEXT-FORMAT.md` and `../grill-with-docs/ADR-FORMAT.md` so doc shape stays consistent with `/grill-with-docs`.
+
+When findings are classified `needs human decision`, suggest `/grill-with-docs` at the end of the report to resolve them — it can stress-test the unresolved branches and update `CONTEXT.md` / ADRs inline.
 
 ## Optional Edits
 Only when the user explicitly asks for edits:

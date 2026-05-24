@@ -156,6 +156,7 @@ Skills I use daily for code work.
 - **[to-prd](./skills/engineering/to-prd/SKILL.md)** — Turn the current conversation context into a PRD and submit it as a GitHub issue. No interview — just synthesizes what you've already discussed.
 - **[zoom-out](./skills/engineering/zoom-out/SKILL.md)** — Tell the agent to zoom out and give broader context or a higher-level perspective on an unfamiliar section of code.
 - **[prototype](./skills/engineering/prototype/SKILL.md)** — Build a throwaway prototype to flesh out a design — either a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route.
+- **[reconcile-docs](./skills/engineering/reconcile-docs/SKILL.md)** — Audit Markdown docs (ADRs, PRDs, `CONTEXT.md`, `AGENTS.md`) for conflicts, staleness, and source-of-truth drift; validates claims against the codebase. Maintenance bookend to [`grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md).
 
 ### Productivity
 
